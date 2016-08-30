@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MyMobile</string>
+    <string name="login_staff_button">Login</string>
+    <string name="login_guest_button">Kundenlogin</string>
+</resources>
