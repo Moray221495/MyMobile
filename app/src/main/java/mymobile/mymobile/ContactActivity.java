@@ -5,30 +5,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebView;
 
 /**
- * Created by jange on 28.08.2016.
+ * Created by jange on 31.08.2016.
  */
-public class NewsActivity extends AppCompatActivity {
+public class ContactActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
-    protected void onCreate(Bundle savedInstanceState, int permission_get) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news);
+        setContentView(R.layout.activity_contact);
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-
-        WebView webview = new WebView(this);
-        setContentView(webview);
-
-        webview.loadUrl("http://dev.morayinteractivestudios.com/mymobile/redirect.php/");
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_news, menu);
+        getMenuInflater().inflate(R.menu.menu_contact, menu);
         return true;
     }
 

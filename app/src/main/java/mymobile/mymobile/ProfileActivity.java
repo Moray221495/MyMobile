@@ -2,6 +2,9 @@ package mymobile.mymobile;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,9 +23,14 @@ import java.net.URLEncoder;
  */
 public class ProfileActivity extends AppCompatActivity {
 
+    private Toolbar toolbar;
+
     protected void onCreate(Bundle savedInstanceState, int id_get, int permission_get) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
 
         String id = String.valueOf(id_get);
 
@@ -74,5 +82,20 @@ public class ProfileActivity extends AppCompatActivity {
         catch(Exception e){
             Toast.makeText(getApplicationContext(), "Error code 2: Internet fehler!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_profile, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_news) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

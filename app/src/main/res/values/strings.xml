@@ -3,4 +3,5 @@
     <string name="login_staff_button">Login</string>
     <string name="login_guest_button">Kundenlogin</string>
     <string name="label_name">Name:</string>
+    <string name="action_news">News</string>
 </resources>
