@@ -1,9 +1,8 @@
-// link package
+// package
 package mymobile.mymobile;
 
 // import java classes
 import java.io.BufferedReader;
-import java.io.Console;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
@@ -15,18 +14,23 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
-// declare class
+/**
+ * Created by Jan Genz on 01.09.2016.
+ */
+
+// declare AsyncLoginActivity class
 public class AsyncLoginActivity  extends AsyncTask<String,Void,String>{
     // declare variables
     private Context context;
-    private TextView statusField;
+    private TextView statusLabel;
 
     // constructor
-    public AsyncLoginActivity(Context context, TextView statusField) {
+    public AsyncLoginActivity(Context context, TextView statusLabel) {
         this.context = context;
-        this.statusField = statusField;
+        this.statusLabel = statusLabel;
     }
 
+    // on pre-execute
     protected void onPreExecute(){
     }
 
@@ -49,7 +53,7 @@ public class AsyncLoginActivity  extends AsyncTask<String,Void,String>{
             URL url = new URL(link);
             URLConnection con = url.openConnection();
 
-            // output stream writer
+            // output-stream-writer
             con.setDoOutput(true);
             OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
 
@@ -68,6 +72,7 @@ public class AsyncLoginActivity  extends AsyncTask<String,Void,String>{
                 sb.append(line);
                 break;
             }
+            // return result
             return sb.toString();
 
         } catch (Exception e) {
@@ -76,8 +81,9 @@ public class AsyncLoginActivity  extends AsyncTask<String,Void,String>{
         }
     }
 
+    // read returned result
     @Override
     protected void onPostExecute(String result){
-        this.statusField.setText(result);
+        this.statusLabel.setText(result);
     }
 }

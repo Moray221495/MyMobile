@@ -1,6 +1,6 @@
 <resources>
     <!-- app -->
-    <string name="app_name">MyMobile</string>
+    <string name="app_name">Telefonicom</string>
 
     <!-- button -->
     <string name="login_staff_button">Login</string>
@@ -8,8 +8,8 @@
     <string name="send_contact_button">Senden</string>
 
     <!-- textbox -->
-    <string name="txtbox_id">vorname_nachname</string>
-    <string name="txtbox_password">password</string>
+    <string name="txtbox_id">ID (Vorname_Nachname)</string>
+    <string name="txtbox_password">Passwort</string>
     <string name="txtbox_forename">Vorname</string>
     <string name="txtbox_surename">Nachname</string>
     <string name="txtbox_phone">Mobil-Nummer</string>
