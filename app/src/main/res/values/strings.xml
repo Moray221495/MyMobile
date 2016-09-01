@@ -1,7 +1,26 @@
 <resources>
+    <!-- app -->
     <string name="app_name">MyMobile</string>
+
+    <!-- button -->
     <string name="login_staff_button">Login</string>
     <string name="login_guest_button">Kundenlogin</string>
+    <string name="send_contact_button">Senden</string>
+
+    <!-- textbox -->
+    <string name="txtbox_id">vorname_nachname</string>
+    <string name="txtbox_password">password</string>
+    <string name="txtbox_forename">Vorname</string>
+    <string name="txtbox_surename">Nachname</string>
+    <string name="txtbox_phone">Mobil-Nummer</string>
+    <string name="txtbox_email">Email</string>
+    <string name="txtbox_subject">Betreff</string>
+    <string name="txtbox_msg">Nachricht</string>
+
+    <!-- label -->
     <string name="label_name">Name:</string>
+
+    <!-- menu item -->
     <string name="action_news">News</string>
+
 </resources>

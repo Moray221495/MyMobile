@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 /**
  * Created by jange on 28.08.2016.
@@ -21,10 +22,15 @@ public class NewsActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
-        WebView webview = new WebView(this);
-        setContentView(webview);
+        try {
 
-        webview.loadUrl("http://dev.morayinteractivestudios.com/mymobile/redirect.php/");
+            WebView webview = new WebView(this);
+            setContentView(webview);
+
+            webview.loadUrl("http://dev.morayinteractivestudios.com/mymobile/redirect.php/");
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Error code 2: Internet fehler!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
