@@ -20,7 +20,17 @@
     <!-- label -->
     <string name="label_name">Name:</string>
 
-    <!-- menu item -->
+    <!-- action item -->
     <string name="action_news">News</string>
+
+    <!-- Notifications -->
+    <string name="notification_sent">Email wurde versendet!</string>
+
+    <!-- Error codes -->
+    <string name="error_0">Error code 0: Server error!</string>
+    <string name="error_2">Error code 2: Internet fehler!</string>
+    <string name="error_3">Error code 3: ID fehlt!</string>
+    <string name="error_4">Error code 4: Passwort fehlt!</string>
+    <string name="error_5">Error code 5: ID ungültig!</string>
 
 </resources>

@@ -63,10 +63,10 @@ public class LoginActivity extends AppCompatActivity {
         // check for correct input
         if (idBox.getText().toString().isEmpty()) {
             // empty ID
-            Toast.makeText(getApplicationContext(), "Error code 3: ID fehlt!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.error_3, Toast.LENGTH_SHORT).show();
         } else if (passwordBox.getText().toString().isEmpty()) {
             // empty password
-            Toast.makeText(getApplicationContext(), "Error code 4: Passwort fehlt!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.error_4, Toast.LENGTH_SHORT).show();
         } else {
             // split id in forename and surename
             String s = idBox.getText().toString();
@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                 new AsyncLoginActivity(this, statusLabel).execute(surename, forename, password);
             } else {
                 // invalid ID
-                Toast.makeText(getApplicationContext(), "Error code 5: Ungültige ID!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.error_5, Toast.LENGTH_SHORT).show();
             }
         }
     }

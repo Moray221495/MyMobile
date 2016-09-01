@@ -1,6 +1,7 @@
+// package
 package mymobile.mymobile;
 
-import android.content.Intent;
+// import android classes
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,103 +10,81 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.StringReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 
 /**
- * Created by jange on 31.08.2016.
+ * Created by Jan Genz on 31.08.2016.
  */
+
+// declare ContactActivity class
 public class ContactActivity extends AppCompatActivity {
-
+    // declare variables
     private Toolbar toolbar;
+    private Button send_contact_button;
+    private EditText forenameBox, surenameBox, phoneBox, emailBox, subjectBox, msgBox;
 
+    // on create
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact);
+        setContentView(R.layout.activity_contact); // link layout
 
+        // initialize actionbar
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
-        final Button login_staff_button = (Button) findViewById(R.id.send_contact_button);
-        login_staff_button.setOnClickListener(new View.OnClickListener() {
+        // initialize UI
+        send_contact_button = (Button) findViewById(R.id.send_contact_button);
+        forenameBox = (EditText) findViewById(R.id.forenameBox);
+        surenameBox = (EditText) findViewById(R.id.surenameBox);
+        phoneBox = (EditText) findViewById(R.id.phoneBox);
+        emailBox = (EditText) findViewById(R.id.emailBox);
+        subjectBox = (EditText) findViewById(R.id.subjectBox);
+        msgBox = (EditText) findViewById(R.id.msgBox);
+
+        // add hints to forenameBox, surenameBox, phoneBox, emailBox, subjectBox, msgBox
+        forenameBox.setHint(R.string.txtbox_forename);
+        surenameBox.setHint(R.string.txtbox_surename);
+        phoneBox.setHint(R.string.txtbox_phone);
+        emailBox.setHint(R.string.txtbox_email);
+        subjectBox.setHint(R.string.txtbox_subject);
+        msgBox.setHint(R.string.txtbox_msg);
+
+        // on send
+        send_contact_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                // action on send_event
-                final EditText forenameBox = (EditText) findViewById(R.id.forenameBox);
-                final EditText surenameBox = (EditText) findViewById(R.id.surenameBox);
-                final EditText phoneBox = (EditText) findViewById(R.id.phoneBox);
-                final EditText emailBox = (EditText) findViewById(R.id.emailBox);
-                final EditText subjectBox = (EditText) findViewById(R.id.subjectBox);
-                final EditText msgBox = (EditText) findViewById(R.id.msgBox);
-
-                String forename = forenameBox.getText().toString();
-                String surename = surenameBox.getText().toString();
-                String phone = phoneBox.getText().toString();
-                String email = emailBox.getText().toString();
-                String subject = subjectBox.getText().toString();
-                String msg = msgBox.getText().toString();
-
-                try{
-                    String link="http://http://dev.morayinteractivestudios.com/mymobile/mail_contact.php";
-                    String data  = URLEncoder.encode("sender", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8");
-                    data += "&" + URLEncoder.encode("subject", "UTF-8") + "=" + URLEncoder.encode(subject, "UTF-8");
-                    data += "&" + URLEncoder.encode("forename", "UTF-8") + "=" + URLEncoder.encode(forename, "UTF-8");
-                    data += "&" + URLEncoder.encode("surename", "UTF-8") + "=" + URLEncoder.encode(surename, "UTF-8");
-                    data += "&" + URLEncoder.encode("phone", "UTF-8") + "=" + URLEncoder.encode(phone, "UTF-8");
-                    data += "&" + URLEncoder.encode("msg", "UTF-8") + "=" + URLEncoder.encode(msg, "UTF-8");
-
-                    URL url = new URL(link);
-                    URLConnection con = url.openConnection();
-
-                    con.setDoOutput(true);
-                    OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
-
-                    wr.write( data );
-                    wr.flush();
-
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-                    StringBuilder sb = new StringBuilder();
-                    String line = null;
-
-                    // read server response
-                    while((line = reader.readLine()) != null)
-                    {
-                        sb.append(line);
-                        break;
-                    }
-                    String result = sb.toString();
-
-                    if (result == "false_0") {
-                        // server error
-                        Toast.makeText(getApplicationContext(), "Error code 0: Server fehler!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        // sent
-                        Toast.makeText(getApplicationContext(), "Erfolgreich gesendet!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                catch(Exception e){
-                    Toast.makeText(getApplicationContext(), "Error code 2: Internet fehler!", Toast.LENGTH_SHORT).show();
-                }
+                // start send-task
+                startAsyncSendTask(v);
             }
         });
     }
 
+    // send pre-setup
+    public void startAsyncSendTask(View view) {
+        // get data
+        String forename = forenameBox.getText().toString();
+        String surename = surenameBox.getText().toString();
+        String phone = phoneBox.getText().toString();
+        String email = emailBox.getText().toString();
+        String subject = subjectBox.getText().toString();
+        String msg = msgBox.getText().toString();
+
+        // validate input
+        // TODO VALIDATION OF INPUT VIA ALGORYTHM
+
+        // start AsyncContactActivity
+        new AsyncContactActivity(this).execute(forename, surename, phone, email, subject, msg);
+    }
+
+    // link menu_layout with actionbar
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_contact, menu);
         return true;
     }
 
+    // add items to menu
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        // on item_click event (handle actions)
         if (id == R.id.action_news) {
             return true;
         }

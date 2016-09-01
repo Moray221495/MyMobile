@@ -40,7 +40,7 @@ public class NewsActivity extends AppCompatActivity {
             webview.loadUrl("http://dev.morayinteractivestudios.com/mymobile/redirect.php/");
         } catch (Exception e) {
             // return exception
-            Toast.makeText(getApplicationContext(), "Error code 2: Internet fehler!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.error_2, Toast.LENGTH_SHORT).show();
         }
     }
 
