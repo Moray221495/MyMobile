@@ -2,6 +2,8 @@
 package mymobile.mymobile;
 
 // import android classes
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -55,7 +57,38 @@ public class NewsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         // on item_click event (handle actions)
-        if (id == R.id.action_news) {
+        if (id == R.id.action_contact) {
+            // start ContactActivity
+            Intent myIntent = new Intent(NewsActivity.this, ContactActivity.class);
+            NewsActivity.this.startActivity(myIntent);
+
+            return true;
+        } else if (id == R.id.action_profile) {
+            // get profile_ID
+            SharedPreferences sharedPreferences= getSharedPreferences("settings", 0);
+            String profile_id = sharedPreferences.getString("profile_id", "");
+
+            // set search_ID
+            SharedPreferences.Editor editor= sharedPreferences.edit();
+            editor.putString("search_id", profile_id);
+            editor.commit();
+
+            // start ProfileActivity
+            Intent myIntent = new Intent(NewsActivity.this, ProfileActivity.class);
+            NewsActivity.this.startActivity(myIntent);
+
+            return true;
+        } else if (id == R.id.action_logout) {
+            // set ID to invalid ID (0) - user is logged out (as guest)
+            SharedPreferences sharedPreferences= getSharedPreferences("settings", 0);
+            SharedPreferences.Editor editor= sharedPreferences.edit();
+            editor.putString("id", "0");
+            editor.commit();
+
+            // start LoginActivity
+            Intent myIntent = new Intent(NewsActivity.this, LoginActivity.class);
+            NewsActivity.this.startActivity(myIntent);
+
             return true;
         }
 

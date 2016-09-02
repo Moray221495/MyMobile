@@ -2,6 +2,8 @@
 package mymobile.mymobile;
 
 // import android classes
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * Created by Jan Genz on 31.08.2016.
@@ -68,10 +71,59 @@ public class ContactActivity extends AppCompatActivity {
         String msg = msgBox.getText().toString();
 
         // validate input
-        // TODO VALIDATION OF INPUT VIA ALGORYTHM
+        if (forenameBox.getText().toString().isEmpty()) {
+            // forename empty
+            Toast.makeText(getApplicationContext(), R.string.notification_forename_empty, Toast.LENGTH_SHORT).show();
+        } else if (surenameBox.getText().toString().isEmpty()) {
+            // surename empty
+            Toast.makeText(getApplicationContext(), R.string.notification_surename_empty, Toast.LENGTH_SHORT).show();
+        } else if (phoneBox.getText().toString().isEmpty()) {
+            // phone empty
+            Toast.makeText(getApplicationContext(), R.string.notification_phone_empty, Toast.LENGTH_SHORT).show();
+        } else if (emailBox.getText().toString().isEmpty()) {
+            // email empty
+            Toast.makeText(getApplicationContext(), R.string.notification_email_empty, Toast.LENGTH_SHORT).show();
+        } else if (subjectBox.getText().toString().isEmpty()) {
+            // subject empty
+            Toast.makeText(getApplicationContext(), R.string.notification_subject_empty, Toast.LENGTH_SHORT).show();
+        } else if (msgBox.getText().toString().isEmpty()) {
+            // msg empty
+            Toast.makeText(getApplicationContext(), R.string.notification_msg_empty, Toast.LENGTH_SHORT).show();
+        } else  if (forename.length() < 3 ^ forename.length() > 20) {
+            // invalid forename
+            Toast.makeText(getApplicationContext(), R.string.notification_forename_invalid, Toast.LENGTH_SHORT).show();
+        } else if (surename.length() < 3 ^ surename.length() > 20) {
+            // invalid surename
+            Toast.makeText(getApplicationContext(), R.string.notification_surename_invalid, Toast.LENGTH_SHORT).show();
+        } else if (phone.length() > 17) {
+            // invalid phone
+            Toast.makeText(getApplicationContext(), R.string.notification_phone_invalid, Toast.LENGTH_SHORT).show();
+        } else if (subject.length() < 5 ^ subject.length() > 120) {
+            // invalid subject
+            Toast.makeText(getApplicationContext(), R.string.notification_subject_invalid, Toast.LENGTH_SHORT).show();
+        } else if  (msg.length() < 20 || msg.length() > 2048) {
+            // invalid msg
+            Toast.makeText(getApplicationContext(), R.string.notification_msg_invalid, Toast.LENGTH_SHORT).show();
+        } else {
+            // validate email
+            if (!isValidEmail(email)) {
+                // invalid email
+                Toast.makeText(getApplicationContext(), R.string.notification_email_invalid, Toast.LENGTH_SHORT).show();
+            }   else {
+                // start AsyncContactActivity
+                new AsyncContactActivity(this).execute(forename, surename, phone, email, subject, msg);
+            }
+        }
+    }
 
-        // start AsyncContactActivity
-        new AsyncContactActivity(this).execute(forename, surename, phone, email, subject, msg);
+    // email validation method
+    public final static boolean isValidEmail(CharSequence target) {
+        if (target == null) {
+            return false;
+        } else {
+            // return result
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
     }
 
     // link menu_layout with actionbar
@@ -86,6 +138,37 @@ public class ContactActivity extends AppCompatActivity {
 
         // on item_click event (handle actions)
         if (id == R.id.action_news) {
+            // start NewsActivity
+            Intent myIntent = new Intent(ContactActivity.this, NewsActivity.class);
+            ContactActivity.this.startActivity(myIntent);
+
+            return true;
+        } else if (id == R.id.action_profile) {
+            // get profile_ID
+            SharedPreferences sharedPreferences= getSharedPreferences("settings", 0);
+            String profile_id = sharedPreferences.getString("profile_id", "");
+
+            // set search_ID
+            SharedPreferences.Editor editor= sharedPreferences.edit();
+            editor.putString("search_id", profile_id);
+            editor.commit();
+
+            // start ProfileActivity
+            Intent myIntent = new Intent(ContactActivity.this, ProfileActivity.class);
+            ContactActivity.this.startActivity(myIntent);
+
+            return true;
+        } else if (id == R.id.action_logout) {
+            // set ID to invalid ID (0) - user is logged out (as guest)
+            SharedPreferences sharedPreferences= getSharedPreferences("settings", 0);
+            SharedPreferences.Editor editor= sharedPreferences.edit();
+            editor.putString("id", "0");
+            editor.commit();
+
+            // start LoginActivity
+            Intent myIntent = new Intent(ContactActivity.this, LoginActivity.class);
+            ContactActivity.this.startActivity(myIntent);
+
             return true;
         }
 

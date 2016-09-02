@@ -3,12 +3,12 @@ package mymobile.mymobile;
 
 // import android classes
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -20,7 +20,6 @@ public class LoginActivity extends AppCompatActivity {
     // declare variables
     private Button login_staff_button, login_guest_button;
     private  EditText idBox,passwordBox;
-    private TextView statusLabel;
 
     // on create
     @Override
@@ -28,12 +27,18 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login); // link layout
 
+        // set IDs to invalid IDs (0) - user is logged out (as guest)
+        SharedPreferences sharedPreferences= getSharedPreferences("settings", 0);
+        SharedPreferences.Editor editor= sharedPreferences.edit();
+        editor.putString("profile_id", "0");
+        editor.putString("search_id", "0");
+        editor.commit();
+
         // initialize UI
         login_staff_button = (Button) findViewById(R.id.login_staff_button);
         login_guest_button = (Button) findViewById(R.id.login_guest_button);
         idBox = (EditText) findViewById(R.id.id_box);
         passwordBox = (EditText) findViewById(R.id.password_box);
-        statusLabel = (TextView)findViewById(R.id.statusLabel);
 
         // add hints to idBox, passwordBox
         idBox.setHint(R.string.txtbox_id);
@@ -52,7 +57,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // start NewsActivity
                 Intent myIntent = new Intent(LoginActivity.this, NewsActivity.class);
-                myIntent.putExtra("permission_get", 1); // optional parameter (permission)
                 LoginActivity.this.startActivity(myIntent);
             }
         });
@@ -63,10 +67,10 @@ public class LoginActivity extends AppCompatActivity {
         // check for correct input
         if (idBox.getText().toString().isEmpty()) {
             // empty ID
-            Toast.makeText(getApplicationContext(), R.string.error_3, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.notification_id_empty, Toast.LENGTH_SHORT).show();
         } else if (passwordBox.getText().toString().isEmpty()) {
             // empty password
-            Toast.makeText(getApplicationContext(), R.string.error_4, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.notification_password_empty, Toast.LENGTH_SHORT).show();
         } else {
             // split id in forename and surename
             String s = idBox.getText().toString();
@@ -82,10 +86,10 @@ public class LoginActivity extends AppCompatActivity {
                 String password = passwordBox.getText().toString();
 
                 // start AsyncLoginActivity
-                new AsyncLoginActivity(this, statusLabel).execute(surename, forename, password);
+                new AsyncLoginActivity(this).execute(surename, forename, password);
             } else {
                 // invalid ID
-                Toast.makeText(getApplicationContext(), R.string.error_5, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.notification_invalid_ID, Toast.LENGTH_SHORT).show();
             }
         }
     }

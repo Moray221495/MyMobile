@@ -19,18 +19,35 @@
 
     <!-- label -->
     <string name="label_name">Name:</string>
+    <string name="label_no_profile">Kein Profil gefunden...</string>
 
     <!-- action item -->
+    <string name="action_contact">Kontakt</string>
     <string name="action_news">News</string>
+    <string name="action_profile">Profil</string>
+    <string name="action_logout">Abmelden</string>
 
     <!-- Notifications -->
     <string name="notification_sent">Email wurde versendet!</string>
+    <string name="notification_invalid_ID">ID ungültig!</string>
+    <string name="notification_password_empty">Passwort fehlt!</string>
+    <string name="notification_id_empty">ID fehlt!</string>
+    <string name="notification_forename_empty">Vorname fehlt!</string>
+    <string name="notification_surename_empty">Nachname fehlt!</string>
+    <string name="notification_phone_empty">Mobil-Nummer fehlt!</string>
+    <string name="notification_email_empty">Email fehlt!</string>
+    <string name="notification_subject_empty">Betreff fehlt!</string>
+    <string name="notification_msg_empty">Nachricht fehlt!</string>
+    <string name="notification_forename_invalid">Vorname ungültig!</string>
+    <string name="notification_surename_invalid">Nachname ungültig!</string>
+    <string name="notification_phone_invalid">Mobil-Nummer ungültig!</string>
+    <string name="notification_subject_invalid">Betreff zu kurz/lang!</string>
+    <string name="notification_msg_invalid">Nachricht zu kurz/lang!</string>
+    <string name="notification_email_invalid">Email ungültig!</string>
 
     <!-- Error codes -->
     <string name="error_0">Error code 0: Server error!</string>
+    <string name="error_1">Error code 1: Falscher login!</string>
     <string name="error_2">Error code 2: Internet fehler!</string>
-    <string name="error_3">Error code 3: ID fehlt!</string>
-    <string name="error_4">Error code 4: Passwort fehlt!</string>
-    <string name="error_5">Error code 5: ID ungültig!</string>
 
 </resources>
