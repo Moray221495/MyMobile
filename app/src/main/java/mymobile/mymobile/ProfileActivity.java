@@ -69,6 +69,10 @@ public class ProfileActivity extends AppCompatActivity {
             ProfileActivity.this.startActivity(myIntent);
 
             return true;
+        } else if (id == R.id.action_map) {
+            // start MapActivity
+            Intent myIntent = new Intent(ProfileActivity.this, MapActivity.class);
+            ProfileActivity.this.startActivity(myIntent);
         } else if (id == R.id.action_news) {
             // start NewsActivity
             Intent myIntent = new Intent(ProfileActivity.this, NewsActivity.class);

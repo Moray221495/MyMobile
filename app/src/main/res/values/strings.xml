@@ -25,6 +25,7 @@
     <string name="action_contact">Kontakt</string>
     <string name="action_news">News</string>
     <string name="action_profile">Profil</string>
+    <string name="action_map">Shops</string>
     <string name="action_logout">Abmelden</string>
 
     <!-- Notifications -->

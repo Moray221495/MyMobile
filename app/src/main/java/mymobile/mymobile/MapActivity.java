@@ -13,20 +13,22 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import java.util.Map;
+
 /**
- * Created by Jan Genz on 01.09.2016.
+ * Created by Jan Genz on 03.09.2016.
  */
 
-// declare NewsActivity class
-public class NewsActivity extends AppCompatActivity {
+// declare MapActivity class
+public class MapActivity extends AppCompatActivity {
     // declare variables
     private Toolbar toolbar;
-    private  WebView webview;
+    private WebView webview;
 
     // on create
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news); // link layout
+        setContentView(R.layout.activity_map); // link layout
 
         // initialize actionbar
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
@@ -36,10 +38,10 @@ public class NewsActivity extends AppCompatActivity {
         webview = (WebView) findViewById(R.id.webView);
 
         try {
-            // load news-feed (via redirect)
+            // load map (via redirect)
             webview.setWebViewClient(new WebViewClient());
             webview.getSettings().setJavaScriptEnabled(true);
-            webview.loadUrl("http://dev.morayinteractivestudios.com/mymobile/redirect_news.php/");
+            webview.loadUrl("http://dev.morayinteractivestudios.com/mymobile/redirect_map.php/");
         } catch (Exception e) {
             // return exception
             Toast.makeText(getApplicationContext(), R.string.error_2, Toast.LENGTH_SHORT).show();
@@ -48,7 +50,7 @@ public class NewsActivity extends AppCompatActivity {
 
     // link menu-layout with actionbar
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_news, menu);
+        getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
@@ -59,29 +61,31 @@ public class NewsActivity extends AppCompatActivity {
         // on item_click event (handle actions)
         if (id == R.id.action_contact) {
             // start ContactActivity
-            Intent myIntent = new Intent(NewsActivity.this, ContactActivity.class);
-            NewsActivity.this.startActivity(myIntent);
+            Intent myIntent = new Intent(MapActivity.this, ContactActivity.class);
+            MapActivity.this.startActivity(myIntent);
 
             return true;
+        } else if (id == R.id.action_news) {
+                // start NewsActivity
+                Intent myIntent = new Intent(MapActivity.this, NewsActivity.class);
+                MapActivity.this.startActivity(myIntent);
+
+                return true;
         } else if (id == R.id.action_profile) {
             // get profile_ID
-            SharedPreferences sharedPreferences = getSharedPreferences("settings", 0);
+            SharedPreferences sharedPreferences= getSharedPreferences("settings", 0);
             String profile_id = sharedPreferences.getString("profile_id", "");
 
             // set search_ID
-            SharedPreferences.Editor editor = sharedPreferences.edit();
+            SharedPreferences.Editor editor= sharedPreferences.edit();
             editor.putString("search_id", profile_id);
             editor.commit();
 
             // start ProfileActivity
-            Intent myIntent = new Intent(NewsActivity.this, ProfileActivity.class);
-            NewsActivity.this.startActivity(myIntent);
+            Intent myIntent = new Intent(MapActivity.this, ProfileActivity.class);
+            MapActivity.this.startActivity(myIntent);
 
             return true;
-        } else if (id == R.id.action_map) {
-            // start MapActivity
-            Intent myIntent = new Intent(NewsActivity.this, MapActivity.class);
-            NewsActivity.this.startActivity(myIntent);
         } else if (id == R.id.action_logout) {
             // set ID to invalid ID (0) - user is logged out (as guest)
             SharedPreferences sharedPreferences= getSharedPreferences("settings", 0);
@@ -90,8 +94,8 @@ public class NewsActivity extends AppCompatActivity {
             editor.commit();
 
             // start LoginActivity
-            Intent myIntent = new Intent(NewsActivity.this, LoginActivity.class);
-            NewsActivity.this.startActivity(myIntent);
+            Intent myIntent = new Intent(MapActivity.this, LoginActivity.class);
+            MapActivity.this.startActivity(myIntent);
 
             return true;
         }
