@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ProfileActivity">
+    tools:context=".NewsActivity">
 
     <item
         android:id="@+id/action_contact"
@@ -14,9 +14,9 @@
         android:title="@string/action_news"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_view"
+        android:id="@+id/action_profile"
         android:orderInCategory="100"
-        android:title="@string/action_view"
+        android:title="@string/action_profile"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_map"

@@ -9,48 +9,42 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Toast;
-
-import java.util.Map;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 /**
- * Created by Jan Genz on 03.09.2016.
+ * Created by Jan Genz on 06.09.2016.
  */
 
-// declare MapActivity class
-public class MapActivity extends AppCompatActivity {
+// declare ViewActivity class
+public class ViewActivity extends AppCompatActivity {
     // declare variables
     private Toolbar toolbar;
-    private WebView webview;
+    private ListView listview;
+    private ArrayAdapter<String> listadapter;
+    private String code = "J8ap)b9N<N%(WpU?5Rb$y625";
 
     // on create
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map); // link layout
+        setContentView(R.layout.activity_view); // link layout
 
         // initialize actionbar
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
         // initialize UI
-        webview = (WebView) findViewById(R.id.webView);
+        listview = (ListView) findViewById(R.id.listView);
 
-        try {
-            // load map (via redirect)
-            webview.setWebViewClient(new WebViewClient());
-            webview.getSettings().setJavaScriptEnabled(true);
-            webview.loadUrl("http://dev.morayinteractivestudios.com/mymobile/redirect_map.php/");
-        } catch (Exception e) {
-            // return exception
-            Toast.makeText(getApplicationContext(), R.string.error_2, Toast.LENGTH_SHORT).show();
-        }
+
+
+        // start AsyncViewActivity
+        new AsyncViewActivity(this, listview).execute(code);
     }
 
     // link menu-layout with actionbar
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_map, menu);
+        getMenuInflater().inflate(R.menu.menu_news, menu);
         return true;
     }
 
@@ -61,35 +55,35 @@ public class MapActivity extends AppCompatActivity {
         // on item_click event (handle actions)
         if (id == R.id.action_contact) {
             // start ContactActivity
-            Intent myIntent = new Intent(MapActivity.this, ContactActivity.class);
-            MapActivity.this.startActivity(myIntent);
+            Intent myIntent = new Intent(ViewActivity.this, ContactActivity.class);
+            ViewActivity.this.startActivity(myIntent);
 
             return true;
         } else if (id == R.id.action_news) {
-                // start NewsActivity
-                Intent myIntent = new Intent(MapActivity.this, NewsActivity.class);
-                MapActivity.this.startActivity(myIntent);
+            // start NewsActivity
+            Intent myIntent = new Intent(ViewActivity.this, NewsActivity.class);
+            ViewActivity.this.startActivity(myIntent);
 
-                return true;
+            return true;
         } else if (id == R.id.action_profile) {
             // get profile_ID
-            SharedPreferences sharedPreferences= getSharedPreferences("settings", 0);
+            SharedPreferences sharedPreferences = getSharedPreferences("settings", 0);
             String profile_id = sharedPreferences.getString("profile_id", "");
 
             // set search_ID
-            SharedPreferences.Editor editor= sharedPreferences.edit();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("search_id", profile_id);
             editor.commit();
 
             // start ProfileActivity
-            Intent myIntent = new Intent(MapActivity.this, ProfileActivity.class);
-            MapActivity.this.startActivity(myIntent);
+            Intent myIntent = new Intent(ViewActivity.this, ProfileActivity.class);
+            ViewActivity.this.startActivity(myIntent);
 
             return true;
-        } else if (id == R.id.action_view) {
-            // start ViewActivity
-            Intent myIntent = new Intent(MapActivity.this, ViewActivity.class);
-            MapActivity.this.startActivity(myIntent);
+        } else if (id == R.id.action_map) {
+            // start MapActivity
+            Intent myIntent = new Intent(ViewActivity.this, MapActivity.class);
+            ViewActivity.this.startActivity(myIntent);
 
             return true;
         } else if (id == R.id.action_logout) {
@@ -100,8 +94,8 @@ public class MapActivity extends AppCompatActivity {
             editor.commit();
 
             // start LoginActivity
-            Intent myIntent = new Intent(MapActivity.this, LoginActivity.class);
-            MapActivity.this.startActivity(myIntent);
+            Intent myIntent = new Intent(ViewActivity.this, LoginActivity.class);
+            ViewActivity.this.startActivity(myIntent);
 
             return true;
         }

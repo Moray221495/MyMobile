@@ -162,6 +162,14 @@ public class ContactActivity extends AppCompatActivity {
             // start MapActivity
             Intent myIntent = new Intent(ContactActivity.this, MapActivity.class);
             ContactActivity.this.startActivity(myIntent);
+
+            return true;
+        } else if (id == R.id.action_view) {
+            // start ViewActivity
+            Intent myIntent = new Intent(ContactActivity.this, ViewActivity.class);
+            ContactActivity.this.startActivity(myIntent);
+
+            return true;
         } else if (id == R.id.action_logout) {
             // set ID to invalid ID (0) - user is logged out (as guest)
             SharedPreferences sharedPreferences= getSharedPreferences("settings", 0);

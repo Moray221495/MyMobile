@@ -73,9 +73,17 @@ public class ProfileActivity extends AppCompatActivity {
             // start MapActivity
             Intent myIntent = new Intent(ProfileActivity.this, MapActivity.class);
             ProfileActivity.this.startActivity(myIntent);
+
+            return true;
         } else if (id == R.id.action_news) {
             // start NewsActivity
             Intent myIntent = new Intent(ProfileActivity.this, NewsActivity.class);
+            ProfileActivity.this.startActivity(myIntent);
+
+            return true;
+        } else if (id == R.id.action_view) {
+            // start ViewActivity
+            Intent myIntent = new Intent(ProfileActivity.this, ViewActivity.class);
             ProfileActivity.this.startActivity(myIntent);
 
             return true;
